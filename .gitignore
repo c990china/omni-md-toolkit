@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 转换产物（写进各自输出目录，不进仓库）
+_pages/
+assets_*/
+*.unorganized-丢弃
+_clean.pdf
+_cache.key
+pipeline_report*.json
+
+# 环境配置（含密钥，永不入库）
+.env
+.DS_Store
+Thumbs.db

@@ -1,0 +1,6 @@
+# 统一换行：入库 LF，检出按平台
+*.py text=auto eol=lf
+*.md text=auto eol=lf
+*.txt text=auto eol=lf
+*.yml text=auto eol=lf
+*.yaml text=auto eol=lf

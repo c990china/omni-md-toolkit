@@ -1,0 +1,36 @@
+# omni-md-toolkit 全能通用 Markdown 工具包依赖
+# 安装命令：pip install -r requirements.txt
+
+# 1) 核心转换引擎（文本/数据型）：markitdown 官方库
+#    负责 docx/pptx/html/xlsx/csv/msg/pdf文本/epub/rtf/odt 等通用格式
+markitdown[all]>=0.1.7   # convert.py 已兼容新版 API（.text_content），实测 2026-09
+
+# 2) DOCX / PPTX 本地精确转换、合并单元格修复与图片抽取
+python-docx>=1.1.0
+python-pptx>=0.6.23
+
+# 3) PDF：文本型智能嗅探（pdfplumber）+ 扫描型页面渲染（PyMuPDF）
+PyMuPDF>=1.24.0
+pdfplumber>=0.11.0
+
+# 4) 表格降级与数据输出
+pandas>=2.0.0
+openpyxl>=3.1.0
+tabulate>=0.9.0
+
+# 5) 扫描型 / 图片型：脚本只把页面渲染成图片，识别由**当前模型看图**完成
+#    （本工具包不做 OCR、不调用任何网关；requests 仅用于 HTML 内联 <img> 抓图）
+requests>=2.31.0
+Pillow>=10.0.0
+
+# 6) Windows 下旧版 .doc（Word 97-2003）通过 Word COM 转换可选依赖
+pywin32>=306; sys_platform == 'win32'
+
+# 7) Kindle 电子书（.azw3/.mobi/.kf8）解包 + XHTML DOM 抽取（2026-10-05 新增）
+#    mobi = mobiunpack 的 Python 封装，负责解 azw3 的 KF8(mobi8)/MOBI7(mobi7) 结构；
+#    解析出来的 xhtml 交给 beautifulsoup4 渲染 DOM。
+#    ★ 不要用 markitdown 的 epub 分支代替：它依赖可选依赖 ebooklib，缺失时静默退化为
+#      zip 文件清单，正文一字不抽（实测 16 章正文全丢、仅 1797 字符产物）。
+mobi>=0.4.1
+beautifulsoup4>=4.12.0
+lxml>=4.9.0   # kindle_to_md 的首选解析器；缺失时脚本自动回退 html.parser，但装上更稳
